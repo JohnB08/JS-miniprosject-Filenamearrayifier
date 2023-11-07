@@ -1,0 +1,11 @@
+body {
+  display: grid;
+  place-content: center;
+}
+#fileUpload {
+  padding: 50px;
+  width: 600px;
+  height: 600px;
+  margin: auto;
+  background: skyblue;
+}
