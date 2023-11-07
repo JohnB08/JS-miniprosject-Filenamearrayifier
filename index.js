@@ -13,7 +13,7 @@ function uploadFiles(event) {
   }
   let arrayString = "";
   fileSaveArray.forEach((fileName) => {
-    arrayString += `"${fileName}",`;
+    arrayString += `"${fileName}", `;
   });
   console.log(arrayString);
   let arrayText = document.createElement("p");
