@@ -8,4 +8,7 @@ body {
   height: 600px;
   margin: auto;
   background: skyblue;
+  display: inherit;
+  place-content: center;
+  gap: 20px;
 }

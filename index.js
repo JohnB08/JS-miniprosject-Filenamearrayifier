@@ -1,4 +1,5 @@
 const uploadBtn = document.querySelector("#uploadBtn");
+const fileUploadForm = document.querySelector("#fileUpload");
 //lager et tomt fileSaveArray
 const fileSaveArray = [];
 //Lager en funksjon som tar inn alle navnene fra filene lagt inn, og spytter ut en copypasteable string som kan limes inn i andre dokumenter.
@@ -17,7 +18,7 @@ function uploadFiles(event) {
   console.log(arrayString);
   let arrayText = document.createElement("p");
   arrayText.textContent = `const fileNameArray = [${arrayString}]`;
-  document.body.appendChild(arrayText);
+  fileUploadForm.appendChild(arrayText);
   console.log(fileSaveArray);
 }
 //eventlistener på knapp.
