@@ -33,6 +33,10 @@ function getFiles() {
 //Lager en funksjon som tar inn alle navnene fra filene lagt inn, og spytter ut en copypasteable string som kan limes inn i andre dokumenter.
 function arrayify(event) {
   event.preventDefault();
+  if (fileInput.value === "") {
+    outputText = "Please select Files";
+    return;
+  }
   //henter in input element fra html
   let fileNameArray = getFiles();
   let stringifiedArray = "";
@@ -45,8 +49,14 @@ function arrayify(event) {
   console.log(fileNameArray);
 }
 
+//funksjon som skriver filnavnene som en objectpseudokode. Spør også etter folder navnet filene tilhører.
 function objectify(event) {
   event.preventDefault();
+  if (fileInput.value === "") {
+    outputText = "Please select Files";
+    return;
+  }
+  //legger ved noen guardclauses just in case.
   if (
     folderNameInput.value === "" ||
     folderNameInput.value.includes("/") ||
@@ -58,11 +68,14 @@ function objectify(event) {
     outputText.textContent = "Please set a valid filename";
     return;
   }
+  //fetcher filene lagt inn i input.
   let fileNameArray = getFiles();
   let stringifiedObject = "";
+  //lager en loop for hvert filename som lager en simpel key/value pair navn basert på filnavnet
   fileNameArray.forEach((fileName) => {
     stringifiedObject += `${fileName.slice(0, -4)}: "${fileName}", `;
   });
+  //skriver dette inn i en pseudokode som blir satt som textcontent til output.
   outputText.textContent = `const fileNameObject = {folder: "./${folderNameInput.value}/", filenames: {${stringifiedObject}}}`;
 }
 //eventlistener på knapp.
@@ -82,4 +95,11 @@ fileOptions.addEventListener("change", () => {
   if (fileOptions.value === "sound") fileInput.accept = "audio/*";
   else if (fileOptions.value === "video") fileInput.accept = "video/*";
   else if (fileOptions.value === "image") fileInput.accept = "image/*";
+});
+document.addEventListener("keydown", (event) => {
+  event.preventDefault();
+  if (event.code === "Enter") {
+    if (functionSelect.value === "Object") objectify(event);
+    else arrayify(event);
+  }
 });
