@@ -31,6 +31,8 @@ illegalCharacters = [
   "+",
   "/",
   "!",
+  "<",
+  ">",
 ];
 
 //funksjon som sammenligner en string, med karakterene i illegalCharacters.
