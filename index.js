@@ -94,7 +94,8 @@ function objectify(event) {
   let stringifiedObject = "";
   //lager en loop for hvert filename som lager en simpel key/value pair navn basert på filnavnet
   fileNameArray.forEach((fileName) => {
-    stringifiedObject += `${fileName.slice(0, -4)}: "${fileName}", `;
+    let trimmedFileName = fileName.split(" ").join(""); //.trim() finner ikke alltid mellomrom i filnavn.
+    stringifiedObject += `${trimmedFileName.slice(0, -4)}: "${fileName}", `;
   });
   //skriver dette inn i en pseudokode som blir satt som textcontent til output.
   outputText.textContent = `const fileNameObject = {folder: "./${folderNameInput.value}/", filenames: {${stringifiedObject}}}`;
