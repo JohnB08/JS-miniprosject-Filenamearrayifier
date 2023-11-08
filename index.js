@@ -136,7 +136,7 @@ function objectify(event) {
     stringifiedObject += `${trimmedFileName}: "${fileName}", `;
   });
   //skriver dette inn i en pseudokode som blir satt som textcontent til output.
-  outputText.textContent = `const fileNameObject = {folder: "./${folderNameInput.value}/", filenames: {${stringifiedObject}}}`;
+  outputText.textContent = `const fileNameObject = {folder: "./${folderNameInput.value}/", fileNames: {${stringifiedObject}}}`;
 }
 // Skifte mellom array og Object.
 functionSelect.addEventListener("change", () => {
