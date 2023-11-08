@@ -90,12 +90,17 @@ functionSelect.addEventListener("change", () => {
     folderLabel.style.display = "none";
   }
 });
+
+//eventlistener for å se hvilke filtype som er valgt.
 fileOptions.addEventListener("change", () => {
+  //tømmer fileinput, sånn at gamle filer ikke skaper kluss.
   fileInput.value = null;
   if (fileOptions.value === "sound") fileInput.accept = "audio/*";
   else if (fileOptions.value === "video") fileInput.accept = "video/*";
   else if (fileOptions.value === "image") fileInput.accept = "image/*";
 });
+
+//eventlistener for preventDefault på keypress.
 document.addEventListener("keydown", (event) => {
   event.preventDefault();
   if (event.code === "Enter") {
