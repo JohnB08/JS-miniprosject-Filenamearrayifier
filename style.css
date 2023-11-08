@@ -11,3 +11,7 @@ body {
   place-content: center;
   gap: 20px;
 }
+#uploadBtn {
+  width: 40%;
+  justify-self: center;
+}
