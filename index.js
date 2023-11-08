@@ -54,6 +54,12 @@ const fileNameNormalizer = (fileName) => {
     trimmedFileName = fileName.split("-");
   } else if (fileName.includes("_")) {
     trimmedFileName = fileName.split("_");
+  } else if (fileName.includes("–")) {
+    trimmedFileName = fileName.split(" – ");
+  } else if (fileName.includes(" (")) {
+    trimmedFileName = fileName.split("(");
+  } else if (fileName.includes(")")) {
+    trimmedFileName = fileName.split(")");
   } else {
     trimmedFileName = fileName.split(" ");
   }
@@ -67,13 +73,20 @@ const fileNameNormalizer = (fileName) => {
     } else {
       let str = trimmedFileName[i];
       strArray = str.split("");
+      console.log(strArray[0]);
       strArray[0] = strArray[0].toUpperCase();
       trimmedFileName[i] = strArray.join("");
     }
   }
   trimmedFileName = trimmedFileName.join("");
   //hvis den fremdeles finner _ eller - i trimmmedFileName, start på nytt.
-  if (trimmedFileName.includes("_") || trimmedFileName.includes("-"))
+  if (
+    trimmedFileName.includes("_") ||
+    trimmedFileName.includes("-") ||
+    trimmedFileName.includes(" – ") ||
+    trimmedFileName.includes(" (") ||
+    trimmedFileName.includes(")")
+  )
     return fileNameNormalizer(trimmedFileName);
   //fjerner . og filetype
   if (trimmedFileName.includes(".")) {
