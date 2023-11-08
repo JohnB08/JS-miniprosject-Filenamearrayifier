@@ -6,7 +6,7 @@ const fileOptions = document.querySelector("#fileOptions");
 const folderLabel = document.createElement("label");
 folderLabel.setAttribute("for", "folderNameInput");
 folderLabel.setAttribute("id", "folderLabel");
-folderLabel.textContent = "Set a foldername!";
+folderLabel.textContent = "Foldername that contains the files!";
 const folderNameInput = document.createElement("input");
 folderNameInput.setAttribute("type", "text");
 folderNameInput.setAttribute("id", "folderNameInput");
