@@ -2,6 +2,7 @@ const uploadBtn = document.querySelector("#uploadBtn");
 const fileUploadForm = document.querySelector("#fileUpload");
 const fileInput = document.querySelector("#fileInput");
 const functionSelect = document.querySelector("#functionSelect");
+const fileOptions = document.querySelector("#fileOptions");
 const folderLabel = document.createElement("label");
 folderLabel.setAttribute("for", "folderNameInput");
 folderLabel.setAttribute("id", "folderLabel");
@@ -44,12 +45,23 @@ function arrayify(event) {
 
 function objectify(event) {
   event.preventDefault();
+  if (
+    folderNameInput.value === "" ||
+    folderNameInput.value.includes("/") ||
+    folderNameInput.value.includes("{") ||
+    folderNameInput.value.includes(".") ||
+    folderNameInput.value.includes("(") ||
+    folderNameInput.value.includes("=")
+  ) {
+    outputText.textContent = "Please set a valid filename";
+    return;
+  }
   let fileNameArray = getFiles();
   let stringifiedObject = "";
   fileNameArray.forEach((fileName) => {
-    stringifiedObject += `${fileName.slice(0, -4)}:{filename: "${fileName}"}, `;
+    stringifiedObject += `${fileName.slice(0, -4)}: "${fileName}", `;
   });
-  outputText.textContent = `const fileNameObject = {folder: "./${folderNameInput.value}/", ${stringifiedObject}}`;
+  outputText.textContent = `const fileNameObject = {folder: "./${folderNameInput.value}/", filenames: {${stringifiedObject}}}`;
 }
 //eventlistener på knapp.
 uploadBtn.addEventListener("click", (event) => {
@@ -64,4 +76,10 @@ functionSelect.addEventListener("change", () => {
     let currentInput = document.querySelector("#folderLabel");
     if (currentInput) currentInput.remove();
   }
+});
+fileOptions.addEventListener("change", () => {
+  fileInput.value = null;
+  if (fileOptions.value === "sound") fileInput.accept = "audio/*";
+  else if (fileOptions.value === "video") fileInput.accept = "video/*";
+  else if (fileOptions.value === "image") fileInput.accept = "image/*";
 });
