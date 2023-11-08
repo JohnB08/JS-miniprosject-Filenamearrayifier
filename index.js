@@ -106,5 +106,5 @@ document.addEventListener("keydown", (event) => {
   if (event.code === "Enter") {
     if (functionSelect.value === "Object") objectify(event);
     else arrayify(event);
-  }
+  } else return;
 });
