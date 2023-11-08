@@ -44,13 +44,13 @@ const illegalCharacterChecker = (string) => {
 
 //funksjon for å normalisere filenames, fjerner mellomrom, og alt bak siste punktum.
 const fileNameNormalizer = (fileName) => {
-  let trimmedFileName = fileName.split(" ").join("");
+  let trimmedFileName = fileName.split(" ").join(""); //trim() funker ikke alltid på mellomrom i filnavn.
   if (trimmedFileName.includes(".")) {
-    let fileNameArray = trimmedFileName.split(".");
-    let fileType = fileNameArray.pop();
+    let fileNameArray = trimmedFileName.split("."); //fjerner alle . fra key.
+    let fileType = fileNameArray.pop(); //finner filetype.
     let fileNameKey = fileNameArray
       .splice(fileNameArray.indexOf(fileType), 1, "")
-      .join("");
+      .join(""); //fjerner filetype fra filename
     console.log(fileNameKey);
     fileName = fileNameKey;
   }
