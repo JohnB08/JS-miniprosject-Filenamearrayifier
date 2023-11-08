@@ -60,7 +60,10 @@ const fileNameNormalizer = (fileName) => {
   //loop som camelCaseifyer key
   for (let i = 0; i < trimmedFileName.length; i++) {
     if (i === 0) {
-      trimmedFileName[i] = trimmedFileName[i].toLowerCase();
+      let str = trimmedFileName[i];
+      strArray = str.split("");
+      strArray[0] = strArray[0].toLowerCase();
+      trimmedFileName[i] = strArray.join("");
     } else {
       let str = trimmedFileName[i];
       strArray = str.split("");
@@ -70,6 +73,8 @@ const fileNameNormalizer = (fileName) => {
   }
   //fjerner . og filetype
   trimmedFileName = trimmedFileName.join("");
+  if (trimmedFileName.includes("_") || trimmedFileName.includes("-"))
+    return fileNameNormalizer(trimmedFileName);
   if (trimmedFileName.includes(".")) {
     let fileNameArray = trimmedFileName.split("."); //fjerner alle . fra filename
     let fileType = fileNameArray.pop(); //finner filetype.
