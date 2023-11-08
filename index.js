@@ -99,3 +99,6 @@ fileOptions.addEventListener("change", () => {
   else if (fileOptions.value === "video") fileInput.accept = "video/*";
   else if (fileOptions.value === "image") fileInput.accept = "image/*";
 });
+fileUploadForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+});
