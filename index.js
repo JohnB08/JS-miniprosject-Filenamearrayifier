@@ -56,7 +56,7 @@ const fileNameNormalizer = (fileName) => {
     trimmedFileName = fileName.split("_");
   } else if (fileName.includes("–")) {
     trimmedFileName = fileName.split(" – ");
-  } else if (fileName.includes(" (")) {
+  } else if (fileName.includes("(")) {
     trimmedFileName = fileName.split("(");
   } else if (fileName.includes(")")) {
     trimmedFileName = fileName.split(")");
@@ -79,13 +79,14 @@ const fileNameNormalizer = (fileName) => {
     }
   }
   trimmedFileName = trimmedFileName.join("");
-  //hvis den fremdeles finner _ eller - i trimmmedFileName, start på nytt.
+  //hvis den fremdeles finner tegn i trimmmedFileName, start på nytt.
   if (
     trimmedFileName.includes("_") ||
     trimmedFileName.includes("-") ||
     trimmedFileName.includes(" – ") ||
-    trimmedFileName.includes(" (") ||
-    trimmedFileName.includes(")")
+    trimmedFileName.includes("(") ||
+    trimmedFileName.includes(")") ||
+    trimmedFileName.includes(" ")
   )
     return fileNameNormalizer(trimmedFileName);
   //fjerner . og filetype
