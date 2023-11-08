@@ -49,7 +49,14 @@ const illegalCharacterChecker = (string) => {
 
 //funksjon for å normalisere filenames, fjerner mellomrom, og alt bak siste punktum.
 const fileNameNormalizer = (fileName) => {
-  let trimmedFileName = fileName.split(" ");
+  let trimmedFileName = [];
+  if (fileName.includes("-")) {
+    trimmedFileName = fileName.split("-");
+  } else if (fileName.includes("_")) {
+    trimmedFileName = fileName.split("_");
+  } else {
+    trimmedFileName = fileName.split(" ");
+  }
   //loop som camelCaseifyer key
   for (let i = 0; i < trimmedFileName.length; i++) {
     if (i === 0) {
@@ -61,7 +68,7 @@ const fileNameNormalizer = (fileName) => {
       trimmedFileName[i] = strArray.join("");
     }
   }
-  console.log(trimmedFileName);
+  //fjerner . og filetype
   trimmedFileName = trimmedFileName.join("");
   if (trimmedFileName.includes(".")) {
     let fileNameArray = trimmedFileName.split("."); //fjerner alle . fra filename
