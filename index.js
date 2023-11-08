@@ -11,6 +11,8 @@ const folderNameInput = document.createElement("input");
 folderNameInput.setAttribute("type", "text");
 folderNameInput.setAttribute("id", "folderNameInput");
 folderLabel.appendChild(folderNameInput);
+fileUploadForm.appendChild(folderLabel);
+folderLabel.style.display = "none";
 const outputText = document.createElement("p");
 fileUploadForm.appendChild(outputText);
 
@@ -70,11 +72,9 @@ uploadBtn.addEventListener("click", (event) => {
 });
 // Skifte mellom array og Object.
 functionSelect.addEventListener("change", () => {
-  if (functionSelect.value === "Object")
-    fileUploadForm.appendChild(folderLabel);
+  if (functionSelect.value === "Object") folderLabel.style.display = "block";
   else {
-    let currentInput = document.querySelector("#folderLabel");
-    if (currentInput) currentInput.remove();
+    folderLabel.style.display = "none";
   }
 });
 fileOptions.addEventListener("change", () => {
