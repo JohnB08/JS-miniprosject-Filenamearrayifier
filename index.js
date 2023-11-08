@@ -71,10 +71,11 @@ const fileNameNormalizer = (fileName) => {
       trimmedFileName[i] = strArray.join("");
     }
   }
-  //fjerner . og filetype
   trimmedFileName = trimmedFileName.join("");
+  //hvis den fremdeles finner _ eller - i trimmmedFileName, start på nytt.
   if (trimmedFileName.includes("_") || trimmedFileName.includes("-"))
     return fileNameNormalizer(trimmedFileName);
+  //fjerner . og filetype
   if (trimmedFileName.includes(".")) {
     let fileNameArray = trimmedFileName.split("."); //fjerner alle . fra filename
     let fileType = fileNameArray.pop(); //finner filetype.
