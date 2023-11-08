@@ -99,12 +99,3 @@ fileOptions.addEventListener("change", () => {
   else if (fileOptions.value === "video") fileInput.accept = "video/*";
   else if (fileOptions.value === "image") fileInput.accept = "image/*";
 });
-
-//eventlistener for preventDefault på keypress.
-document.addEventListener("keydown", (event) => {
-  event.preventDefault();
-  if (event.code === "Enter") {
-    if (functionSelect.value === "Object") objectify(event);
-    else arrayify(event);
-  } else return;
-});
