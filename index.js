@@ -42,6 +42,20 @@ const illegalCharacterChecker = (string) => {
 };
 /* console.log(illegalCharacterChecker("Hello!")); */
 
+//funksjon for å normalisere filenames, fjerner mellomrom, og alt bak siste punktum.
+const fileNameNormalizer = (fileName) => {
+  let trimmedFileName = fileName.split(" ").join("");
+  if (trimmedFileName.includes(".")) {
+    let fileNameArray = trimmedFileName.split(".");
+    let fileType = fileNameArray.pop();
+    let fileNameKey = fileNameArray
+      .splice(fileNameArray.indexOf(fileType), 1, "")
+      .join("");
+    console.log(fileNameKey);
+    fileName = fileNameKey;
+  }
+  return fileName;
+};
 //fil som henter filnavnene fra fileInput, og legger de i et filenameArray. returner arrayet.
 function getFiles() {
   let fileNameArray = [];
@@ -94,8 +108,8 @@ function objectify(event) {
   let stringifiedObject = "";
   //lager en loop for hvert filename som lager en simpel key/value pair navn basert på filnavnet
   fileNameArray.forEach((fileName) => {
-    let trimmedFileName = fileName.split(" ").join(""); //.trim() finner ikke alltid mellomrom i filnavn.
-    stringifiedObject += `${trimmedFileName.slice(0, -4)}: "${fileName}", `;
+    let trimmedFileName = fileNameNormalizer(fileName); //.trim() finner ikke alltid mellomrom i filnavn.
+    stringifiedObject += `${trimmedFileName}: "${fileName}", `;
   });
   //skriver dette inn i en pseudokode som blir satt som textcontent til output.
   outputText.textContent = `const fileNameObject = {folder: "./${folderNameInput.value}/", filenames: {${stringifiedObject}}}`;
