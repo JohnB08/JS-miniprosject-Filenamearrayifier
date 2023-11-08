@@ -33,6 +33,11 @@ illegalCharacters = [
   "!",
   "<",
   ">",
+  "*",
+  ":",
+  '"',
+  ",",
+  ";",
 ];
 
 //funksjon som sammenligner en string, med karakterene i illegalCharacters.
@@ -51,10 +56,9 @@ const fileNameNormalizer = (fileName) => {
     let fileNameKey = fileNameArray
       .splice(fileNameArray.indexOf(fileType), 1, "")
       .join(""); //fjerner filetype fra filename
-    console.log(fileNameKey);
-    fileName = fileNameKey;
+    /*     console.log(fileNameKey); */
+    return (fileName = fileNameKey);
   }
-  return fileName;
 };
 //fil som henter filnavnene fra fileInput, og legger de i et filenameArray. returner arrayet.
 function getFiles() {
