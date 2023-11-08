@@ -16,8 +16,31 @@ folderLabel.style.display = "none";
 const outputText = document.createElement("p");
 fileUploadForm.appendChild(outputText);
 
-//lager et tomt fileSaveArray
+//lager et array med karaktere som skal bli ignorert.
+illegalCharacters = [
+  "@",
+  "[",
+  "]",
+  "(",
+  ")",
+  "{",
+  "}",
+  "?",
+  "=",
+  "$",
+  "+",
+  "/",
+  "!",
+];
 
+//funksjon som sammenligner en string, med karakterene i illegalCharacters.
+const illegalCharacterChecker = (string) => {
+  let stringArray = string.split("");
+  return stringArray.some((character) => illegalCharacters.includes(character));
+};
+/* console.log(illegalCharacterChecker("Hello!")); */
+
+//fil som henter filnavnene fra fileInput, og legger de i et filenameArray. returner arrayet.
 function getFiles() {
   let fileNameArray = [];
   //input.files er alle filene som er lagt inn i input elementet når knappen er trykket.
@@ -34,7 +57,7 @@ function getFiles() {
 function arrayify(event) {
   event.preventDefault();
   if (fileInput.value === "") {
-    outputText = "Please select Files";
+    outputText.textContent = "Please select Files";
     return;
   }
   //henter in input element fra html
@@ -53,17 +76,13 @@ function arrayify(event) {
 function objectify(event) {
   event.preventDefault();
   if (fileInput.value === "") {
-    outputText = "Please select Files";
+    outputText.textContent = "Please select Files";
     return;
   }
   //legger ved noen guardclauses just in case.
   if (
     folderNameInput.value === "" ||
-    folderNameInput.value.includes("/") ||
-    folderNameInput.value.includes("{") ||
-    folderNameInput.value.includes(".") ||
-    folderNameInput.value.includes("(") ||
-    folderNameInput.value.includes("=")
+    illegalCharacterChecker(folderNameInput.value)
   ) {
     outputText.textContent = "Please set a valid filename";
     return;
@@ -78,17 +97,17 @@ function objectify(event) {
   //skriver dette inn i en pseudokode som blir satt som textcontent til output.
   outputText.textContent = `const fileNameObject = {folder: "./${folderNameInput.value}/", filenames: {${stringifiedObject}}}`;
 }
-//eventlistener på knapp.
-uploadBtn.addEventListener("click", (event) => {
-  if (functionSelect.value === "Object") objectify(event);
-  else arrayify(event);
-});
 // Skifte mellom array og Object.
 functionSelect.addEventListener("change", () => {
   if (functionSelect.value === "Object") folderLabel.style.display = "block";
   else {
     folderLabel.style.display = "none";
   }
+});
+//button event listener
+uploadBtn.addEventListener("click", (event) => {
+  if (functionSelect.value === "Object") objectify(event);
+  else arrayify(event);
 });
 
 //eventlistener for å se hvilke filtype som er valgt.
@@ -99,6 +118,10 @@ fileOptions.addEventListener("change", () => {
   else if (fileOptions.value === "video") fileInput.accept = "video/*";
   else if (fileOptions.value === "image") fileInput.accept = "image/*";
 });
+
+//eventlistener på fileUploadForm for preventDefault.
 fileUploadForm.addEventListener("submit", (event) => {
   event.preventDefault();
+  if (functionSelect.value === "Object") objectify(event);
+  else arrayify(event);
 });
