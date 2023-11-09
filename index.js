@@ -1,8 +1,11 @@
 const uploadBtn = document.querySelector("#uploadBtn");
 const fileUploadForm = document.querySelector("#fileUpload");
 const fileInput = document.querySelector("#fileInput");
+const fileInputLabel = document.querySelector("#fileInputLabel");
 const functionSelect = document.querySelector("#functionSelect");
 const fileOptions = document.querySelector("#fileOptions");
+const inputContainer = document.createElement("div");
+inputContainer.className = "container objectContainer";
 const folderLabel = document.createElement("label");
 folderLabel.setAttribute("for", "folderNameInput");
 folderLabel.setAttribute("id", "folderLabel");
@@ -10,7 +13,8 @@ folderLabel.textContent = "Foldername that contains the files!";
 const folderNameInput = document.createElement("input");
 folderNameInput.setAttribute("type", "text");
 folderNameInput.setAttribute("id", "folderNameInput");
-folderLabel.appendChild(folderNameInput);
+inputContainer.appendChild(folderLabel);
+inputContainer.appendChild(folderNameInput);
 
 //lager et array med karaktere som skal bli ignorert.
 illegalCharacters = [
@@ -141,10 +145,11 @@ function makeOutput() {
 function arrayify(event) {
   event.preventDefault();
   if (fileInput.value === "") {
-    outputText.textContent = "Please select Files";
+    fileError();
     return;
   }
   //henter in input element fra html
+  errorRemover();
   let fileNameArray = getFiles();
   let stringifiedArray = "";
   //lager en string basert på filenames
@@ -156,12 +161,30 @@ function arrayify(event) {
   outputText.textContent = `const fileNameArray = [${stringifiedArray}];`;
   console.log(fileNameArray);
 }
+//error message for fileLabel
+function fileError() {
+  fileInputLabel.textContent = "Please select valid files.";
+  fileInputLabel.style.color = "red";
+}
+
+//error message for folderlabel
+function folderNameError() {
+  folderLabel.textContent = "Please write valid foldername";
+  folderLabel.style.color = "red";
+}
+
+function errorRemover() {
+  folderLabel.innerText = "Foldername that contains the files!";
+  folderLabel.style.color = "black";
+  fileInputLabel.innerText = "Choose files to Arrayify or Objectify";
+  fileInputLabel.style.color = "black";
+}
 
 //funksjon som skriver filnavnene som en objectpseudokode. Spør også etter folder navnet filene tilhører.
 function objectify(event) {
   event.preventDefault();
   if (fileInput.value === "") {
-    outputText.textContent = "Please select Files";
+    fileError();
     return;
   }
   //legger ved noen guardclauses just in case.
@@ -169,9 +192,11 @@ function objectify(event) {
     folderNameInput.value === "" ||
     illegalCharacterChecker(folderNameInput.value)
   ) {
-    outputText.textContent = "Please set a valid filename";
+    folderNameError();
     return;
   }
+  //korrigerer hvis error
+  errorRemover();
   //fetcher filene lagt inn i input.
   let fileNameArray = getFiles();
   let stringifiedObject = "";
@@ -187,10 +212,10 @@ function objectify(event) {
 // Skifte mellom array og Object.
 functionSelect.addEventListener("change", () => {
   if (functionSelect.value === "Object") {
-    fileUploadForm.appendChild(folderLabel);
+    fileUploadForm.appendChild(inputContainer);
     uploadBtn.textContent = "Make my Object!";
   } else {
-    let labelExists = document.querySelector("#folderLabel");
+    let labelExists = document.querySelector(".objectContainer");
     if (labelExists) labelExists.remove();
     uploadBtn.textContent = "Make my Array!";
   }
