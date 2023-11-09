@@ -54,17 +54,19 @@ const fileNameIconCleanerArray = ["-", " ", "_", "–", ")", "("];
 const fileNameNormalizer = (fileName) => {
   let fileNameArray = fileName.split("");
   fileNameArray[0] = fileNameArray[0].toLowerCase();
+  //"mapper" ut arrayet, og sammenligner arrayet med fileNameIconCleanerArray.
   fileNameArray.map((character) => {
     if (fileNameIconCleanerArray.includes(character)) {
       fileNameArray[fileNameArray.indexOf(character) + 1].toUpperCase;
       fileNameArray.splice([fileNameArray.indexOf(character)], 1, "");
     }
   });
+  //fjerner filtype fra filename.
   let fileTypeArray = fileNameArray.join("").split(".");
   fileTypeArray.pop();
   return (fileName = fileTypeArray.join(""));
 };
-//Gamle filena
+//Gamle fileNameNormalizer, beholder den for å ha en referanse til rekursivitet.
 /* const fileNameNormalizer = (fileName) => {
   let trimmedFileName = [];
   if (fileName.includes("-")) {
