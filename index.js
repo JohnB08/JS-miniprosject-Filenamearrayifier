@@ -134,7 +134,7 @@ function makeOutput() {
   let existingText = document.querySelector("p");
   if (existingText) existingText.remove();
   const outputText = document.createElement("p");
-  fileUploadForm.appendChild(outputText);
+  document.body.appendChild(outputText);
   return outputText;
 }
 //Lager en funksjon som tar inn alle navnene fra filene lagt inn, og spytter ut en copypasteable string som kan limes inn i andre dokumenter.
@@ -197,6 +197,7 @@ functionSelect.addEventListener("change", () => {
 });
 //button event listener
 uploadBtn.addEventListener("click", (event) => {
+  event.preventDefault();
   if (functionSelect.value === "Object") objectify(event);
   else arrayify(event);
 });
