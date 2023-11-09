@@ -47,8 +47,25 @@ const illegalCharacterChecker = (string) => {
 };
 /* console.log(illegalCharacterChecker("Hello!")); */
 
-//funksjon for å normalisere filenames, fjerner mellomrom, og alt bak siste punktum.
+const fileNameIconCleanerArray = ["-", " ", "_", "–", ")", "("];
+
+//fileNameNormalizer, mapper fileNameNormalizer, og finner alle tegn som passer med fileNameIconCleanerArray,
+//fjerner de karakterene, og setter karakteren etter til uppercase.
 const fileNameNormalizer = (fileName) => {
+  let fileNameArray = fileName.split("");
+  fileNameArray[0] = fileNameArray[0].toLowerCase();
+  fileNameArray.map((character) => {
+    if (fileNameIconCleanerArray.includes(character)) {
+      fileNameArray[fileNameArray.indexOf(character) + 1].toUpperCase;
+      fileNameArray.splice([fileNameArray.indexOf(character)], 1, "");
+    }
+  });
+  let fileTypeArray = fileNameArray.join("").split(".");
+  fileTypeArray.pop();
+  return (fileName = fileTypeArray.join(""));
+};
+//Gamle filena
+/* const fileNameNormalizer = (fileName) => {
   let trimmedFileName = [];
   if (fileName.includes("-")) {
     trimmedFileName = fileName.split("-");
@@ -97,9 +114,9 @@ const fileNameNormalizer = (fileName) => {
       .splice(fileNameArray.indexOf(fileType), 1, "")
       .join(""); //fjerner filetype fra filename
     /*     console.log(fileNameKey); */
-    return (fileName = fileNameKey);
+/*    return (fileName = fileNameKey);
   }
-};
+}; */
 //fil som henter filnavnene fra fileInput, og legger de i et filenameArray. returner arrayet.
 function getFiles() {
   let fileNameArray = [];
