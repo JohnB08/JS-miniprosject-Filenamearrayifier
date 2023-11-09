@@ -4,6 +4,7 @@ const fileInput = document.querySelector("#fileInput");
 const fileInputLabel = document.querySelector("#fileInputLabel");
 const functionSelect = document.querySelector("#functionSelect");
 const fileOptions = document.querySelector("#fileOptions");
+const outputDiv = document.querySelector("#outputDiv");
 const inputContainer = document.createElement("div");
 inputContainer.className = "container objectContainer";
 const folderLabel = document.createElement("label");
@@ -138,7 +139,7 @@ function makeOutput() {
   let existingText = document.querySelector("p");
   if (existingText) existingText.remove();
   const outputText = document.createElement("p");
-  document.body.appendChild(outputText);
+  outputDiv.appendChild(outputText);
   return outputText;
 }
 //Lager en funksjon som tar inn alle navnene fra filene lagt inn, og spytter ut en copypasteable string som kan limes inn i andre dokumenter.
