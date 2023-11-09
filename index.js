@@ -1,5 +1,6 @@
 const uploadBtn = document.querySelector("#uploadBtn");
-const fileUploadForm = document.querySelector("#fileUpload");
+const formContainer = document.querySelector(".inputcontainer");
+const form = document.querySelector("#fileUpload");
 const fileInput = document.querySelector("#fileInput");
 const fileInputLabel = document.querySelector("#fileInputLabel");
 const functionSelect = document.querySelector("#functionSelect");
@@ -213,7 +214,7 @@ function objectify(event) {
 // Skifte mellom array og Object.
 functionSelect.addEventListener("change", () => {
   if (functionSelect.value === "Object") {
-    fileUploadForm.appendChild(inputContainer);
+    formContainer.appendChild(inputContainer);
     uploadBtn.textContent = "Make my Object!";
   } else {
     let labelExists = document.querySelector(".objectContainer");
@@ -237,8 +238,8 @@ fileOptions.addEventListener("change", () => {
   else if (fileOptions.value === "image") fileInput.accept = "image/*";
 });
 
-//eventlistener på fileUploadForm for preventDefault.
-fileUploadForm.addEventListener("submit", (event) => {
+//eventlistener på formContainer for preventDefault.
+form.addEventListener("submit", (event) => {
   event.preventDefault();
   if (functionSelect.value === "Object") objectify(event);
   else arrayify(event);

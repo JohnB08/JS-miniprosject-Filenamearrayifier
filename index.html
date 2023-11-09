@@ -10,32 +10,34 @@
   <body>
     <h1>Filename Arrayifier!</h1>
     <form action="" id="fileUpload" enctype="multipart/form-data">
-      <div class="container">
-        <label for="fileInput" id="fileInputLabel"
-          >Choose files to Arrayify or Objectify</label
-        >
-        <input
-          type="file"
-          name="files[]"
-          id="fileInput"
-          multiple
-          accept="audio/*"
-        />
-      </div>
-      <div class="container">
-        <label for="fileOptions">Choose filetype</label>
-        <select name="fileOptions" id="fileOptions">
-          <option value="sound">Soundfiles</option>
-          <option value="video">Videofiles</option>
-          <option value="image">Imagefiles</option>
-        </select>
-      </div>
-      <div class="container">
-        <label for="functionSelect">Filenames to array or object?</label>
-        <select name="object/array" id="functionSelect">
-          <option value="Array">Arrayify</option>
-          <option value="Object">Objectify</option>
-        </select>
+      <div class="inputcontainer">
+        <div class="container">
+          <label for="fileInput" id="fileInputLabel"
+            >Choose files to Arrayify or Objectify</label
+          >
+          <input
+            type="file"
+            name="files[]"
+            id="fileInput"
+            multiple
+            accept="audio/*"
+          />
+        </div>
+        <div class="container">
+          <label for="fileOptions">Choose filetype</label>
+          <select name="fileOptions" id="fileOptions">
+            <option value="sound">Soundfiles</option>
+            <option value="video">Videofiles</option>
+            <option value="image">Imagefiles</option>
+          </select>
+        </div>
+        <div class="container">
+          <label for="functionSelect">Filenames to array or object?</label>
+          <select name="object/array" id="functionSelect">
+            <option value="Array">Arrayify</option>
+            <option value="Object">Objectify</option>
+          </select>
+        </div>
       </div>
       <button type="submit" id="uploadBtn">Make my Array!</button>
     </form>

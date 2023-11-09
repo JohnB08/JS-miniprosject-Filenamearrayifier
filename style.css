@@ -3,10 +3,15 @@ body {
   place-content: center;
 }
 #fileUpload {
+  display: inherit;
+  place-content: center;
+  background-color: skyblue;
   padding: 50px;
+  gap: 20px;
+}
+.inputcontainer {
   width: 600px;
   margin: auto;
-  background: skyblue;
   display: inherit;
   place-content: center;
   gap: 20px;
