@@ -15,3 +15,11 @@ body {
   width: 40%;
   justify-self: center;
 }
+label {
+  display: flex;
+  justify-content: space-between;
+}
+input,
+select {
+  width: 40%;
+}

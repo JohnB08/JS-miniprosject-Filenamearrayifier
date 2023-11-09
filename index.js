@@ -11,10 +11,6 @@ const folderNameInput = document.createElement("input");
 folderNameInput.setAttribute("type", "text");
 folderNameInput.setAttribute("id", "folderNameInput");
 folderLabel.appendChild(folderNameInput);
-fileUploadForm.appendChild(folderLabel);
-folderLabel.style.display = "none";
-const outputText = document.createElement("p");
-fileUploadForm.appendChild(outputText);
 
 //lager et array med karaktere som skal bli ignorert.
 illegalCharacters = [
@@ -132,6 +128,15 @@ function getFiles() {
   }
   return fileNameArray;
 }
+
+//checking if outputtext exists
+function makeOutput() {
+  let existingText = document.querySelector("p");
+  if (existingText) existingText.remove();
+  const outputText = document.createElement("p");
+  fileUploadForm.appendChild(outputText);
+  return outputText;
+}
 //Lager en funksjon som tar inn alle navnene fra filene lagt inn, og spytter ut en copypasteable string som kan limes inn i andre dokumenter.
 function arrayify(event) {
   event.preventDefault();
@@ -146,6 +151,7 @@ function arrayify(event) {
   fileNameArray.forEach((fileName) => {
     stringifiedArray += `"${fileName}", `;
   });
+  let outputText = makeOutput();
   //lager et p element, putter inn den komplette arraystringen inn i pseudokoden og appender det til formen.
   outputText.textContent = `const fileNameArray = [${stringifiedArray}];`;
   console.log(fileNameArray);
@@ -174,14 +180,19 @@ function objectify(event) {
     let trimmedFileName = fileNameNormalizer(fileName); //.trim() finner ikke alltid mellomrom i filnavn.
     stringifiedObject += `${trimmedFileName}: "${fileName}", `;
   });
+  let outputText = makeOutput();
   //skriver dette inn i en pseudokode som blir satt som textcontent til output.
   outputText.textContent = `const fileNameObject = {folder: "./${folderNameInput.value}/", fileNames: {${stringifiedObject}}}`;
 }
 // Skifte mellom array og Object.
 functionSelect.addEventListener("change", () => {
-  if (functionSelect.value === "Object") folderLabel.style.display = "block";
-  else {
-    folderLabel.style.display = "none";
+  if (functionSelect.value === "Object") {
+    fileUploadForm.appendChild(folderLabel);
+    uploadBtn.textContent = "Make my Object!";
+  } else {
+    let labelExists = document.querySelector("#folderLabel");
+    if (labelExists) labelExists.remove();
+    uploadBtn.textContent = "Make my Array!";
   }
 });
 //button event listener
